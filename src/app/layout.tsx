@@ -9,8 +9,11 @@ moment.locale('id')
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '500'] })
 
 export const metadata: Metadata = {
-    title: 'Tanda Tangan Digital RUPIRA',
+    title: 'Tanda Tangan Digital Rupira',
     description: 'Rupira signature website checker',
+    robots: {
+        index: false,
+    },
 }
 
 export default function RootLayout({
