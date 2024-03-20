@@ -17,30 +17,9 @@ export interface Approver {
 }
 
 export interface Employee {
-    workgroup: string
-    cuti: number
-    deleted: boolean
     nip: string
-    email: string
-    password: string
     name: string
-    nickName: string
-    gender: string
-    avatar: string
-    division: string
     position: Position
-    status: string
-    relations: any[]
-    createdAt: string
-    updatedAt: string
-    joinedAt: string
-    nameTagPhoto: string
-    technicianId: string
-    order: string
-    prefix: string
-    lastCuti: number
-    lastCutiBefore: number
-    type: string
     id: string
 }
 
