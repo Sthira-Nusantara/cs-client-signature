@@ -7,6 +7,7 @@ export interface Signature {
     updatedAt: string
     usedBy: string
     id: string
+    date: string
 }
 
 export interface Approver {

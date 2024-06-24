@@ -55,8 +55,8 @@ export default function SignatureLayout({ data, id }: { data: Signature; id: str
                     <hr className="mb-3" />
                     <div className="flex justify-between flex-wrap gap-y-3">
                         <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base">Waktu Dibuat</h5>
-                            <p>{moment(data.createdAt).format('DD MMM YYYY HH:mm')}</p>
+                            <h5 className="font-bold text-base">Tanggal Dibuat</h5>
+                            <p>{moment(data.date || data.createdAt).format('DD MMM YYYY')}</p>
                         </div>
                         <div className="md:w-1/3 w-full">
                             <h5 className="font-bold text-base">Waktu Pindai</h5>

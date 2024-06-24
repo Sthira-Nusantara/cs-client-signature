@@ -11,7 +11,7 @@ export default function RootLayout({
     const ip = (header.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0]
 
     return (
-        <div className="w-screen h-screen overflow-hidden overflow-y-auto p-4 pb-0 md:px-16 md:py-12 bg-img">
+        <div className="w-screen min-h-screen overflow-hidden overflow-y-auto p-4 pb-0 md:px-16 md:py-12 bg-img">
             <div className="flex flex-col h-full w-full">
                 <div className="flex items-center gap-2">
                     <div className="w-14 overflow-hidden rounded-full">
