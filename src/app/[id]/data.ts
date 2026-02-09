@@ -20,7 +20,7 @@ export async function getSignature(id: any): Promise<Signature | 'invalid_signat
         return signature
     } catch (error) {
         if (error instanceof AxiosError) {
-            if (error.code === 'ENOTFOUND' || error.response?.status! >= 500) {
+            if (error.code === 'ENOTFOUND' || (error.response?.status && error.response?.status >= 500)) {
                 return 'server_error'
             }
         }

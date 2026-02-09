@@ -70,7 +70,7 @@ export default function SignatureLayout({ data, id }: { data: Signature; id: str
                 </div>
             </div>
             <div className="mt-12">
-                <p className="text-lg text-white">
+                <p className="text-lg text-gray-600">
                     Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang
                     diterbitkan Rupira.
                 </p>

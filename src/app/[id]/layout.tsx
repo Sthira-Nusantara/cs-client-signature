@@ -2,12 +2,12 @@ import { LogoIcon } from '@/assets'
 import { headers } from 'next/headers'
 import './styles.css'
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode
 }>) {
-    const header = headers()
+    const header = await headers()
     const ip = (header.get('x-forwarded-for') ?? '127.0.0.1').split(',')[0]
 
     return (
