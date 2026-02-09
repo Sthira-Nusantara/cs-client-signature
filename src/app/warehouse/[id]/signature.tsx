@@ -159,89 +159,86 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
 
     return (
         <>
-            <div className="bg-white px-3 py-6 md:px-12 md:py-16 rounded" style={{ minHeight: '50%' }}>
-                <div>
-                    <div className="flex flex-col items-center mb-4">
-                        <FaCheckCircle className="text-green-600 text-8xl text-center mx-auto mb-3" />
-                        <div className="bg-green-600 text-white px-4 py-2 rounded-md shadow-sm">
-                            <p className="font-bold text-lg">{getModelTypeLabel(data.modelType)}</p>
-                        </div>
-                    </div>
-                    <hr className="border-gray-300" />
+            <div className="bg-white px-3 py-6 md:px-12 md:py-16 rounded relative overflow-hidden" style={{ minHeight: '50%' }}>
+                {/* Watermark */}
+                <div className="absolute inset-0 pointer-events-none opacity-10 z-0 flex items-center justify-center" style={{ transform: 'rotate(-45deg)' }}>
+                    <p className="text-green-600 text-6xl md:text-8xl lg:text-9xl font-bold">Approved</p>
                 </div>
 
-                <div className="my-4">
-                    <div className="flex justify-between flex-wrap gap-y-3">
-                        <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base text-gray-700">Status Dokumen</h5>
-                            <p className="text-gray-900">{data.status}</p>
-                        </div>
-                        <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base text-gray-700">Nomor Dokumen</h5>
-                            <p className="text-gray-900">{getModelNumber()}</p>
-                        </div>
-                        <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base text-gray-700">Jenis Dokumen</h5>
-                            <p className="text-gray-900">{getModelTypeLabel(data.modelType)}</p>
+                <div className="relative z-10">
+                    <div className="my-4">
+                        <div className="flex justify-between flex-wrap gap-y-3">
+                            <div className="md:w-1/3 w-full">
+                                <h5 className="font-bold text-base text-gray-700">Status Dokumen</h5>
+                                <p className="text-gray-900">{data.status}</p>
+                            </div>
+                            <div className="md:w-1/3 w-full">
+                                <h5 className="font-bold text-base text-gray-700">Nomor Dokumen</h5>
+                                <p className="text-gray-900">{getModelNumber()}</p>
+                            </div>
+                            <div className="md:w-1/3 w-full">
+                                <h5 className="font-bold text-base text-gray-700">Jenis Dokumen</h5>
+                                <p className="text-gray-900">{getModelTypeLabel(data.modelType)}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="my-4">
-                    <h3 className="text-green-600 font-semibold text-lg mb-2">Info Penandatangan</h3>
-                    <hr className="mb-4 border-gray-300 w-full" />
-                    {data.approvers.map((approver, index) => (
-                        <div key={index} className="mb-6 last:mb-0">
-                            <div className="bg-gray-50 p-4 rounded-lg mb-3">
-                                <div className="flex justify-between flex-wrap gap-y-3">
-                                    <div className="md:w-1/3 w-full">
-                                        <h5 className="font-bold text-base text-gray-700">Nama</h5>
-                                        <p className="text-gray-900">{approver.user.name}</p>
-                                    </div>
-                                    <div className="md:w-1/3 w-full">
-                                        <h5 className="font-bold text-base text-gray-700">NIP</h5>
-                                        <p className="text-gray-900">{approver.user.nip}</p>
-                                    </div>
-                                    <div className="md:w-1/3 w-full">
-                                        <h5 className="font-bold text-base text-gray-700">Jabatan</h5>
-                                        <p className="text-gray-900">{approver.user.position.name}</p>
-                                    </div>
-                                    <div className="md:w-1/3 w-full">
-                                        <h5 className="font-bold text-base text-gray-700">Divisi</h5>
-                                        <p className="text-gray-900">{approver.user.division.name}</p>
-                                    </div>
-                                    <div className="md:w-1/3 w-full">
-                                        <h5 className="font-bold text-base text-gray-700">Level</h5>
-                                        <p className="text-gray-900">{approver.level}</p>
-                                    </div>
-                                    <div className="md:w-1/3 w-full">
-                                        <h5 className="font-bold text-base text-gray-700">Status Persetujuan</h5>
-                                        <p className="text-gray-900">{approver.status}</p>
+                    <div className="my-4">
+                        <h3 className="text-green-600 font-semibold text-lg mb-2">Info Penandatangan</h3>
+                        <hr className="mb-4 border-gray-300 w-full" />
+                        {data.approvers.map((approver, index) => (
+                            <div key={index} className="mb-6 last:mb-0">
+                                <div className="shadow-md p-4 rounded-lg mb-3">
+                                    <div className="flex justify-between flex-wrap gap-y-3">
+                                        <div className="md:w-1/3 w-full">
+                                            <h5 className="font-bold text-base text-gray-700">Nama</h5>
+                                            <p className="text-gray-900">{approver.user.name}</p>
+                                        </div>
+                                        <div className="md:w-1/3 w-full">
+                                            <h5 className="font-bold text-base text-gray-700">NIP</h5>
+                                            <p className="text-gray-900">{approver.user.nip}</p>
+                                        </div>
+                                        <div className="md:w-1/3 w-full">
+                                            <h5 className="font-bold text-base text-gray-700">Jabatan</h5>
+                                            <p className="text-gray-900">{approver.user.position.name}</p>
+                                        </div>
+                                        <div className="md:w-1/3 w-full">
+                                            <h5 className="font-bold text-base text-gray-700">Divisi</h5>
+                                            <p className="text-gray-900">{approver.user.division.name}</p>
+                                        </div>
+                                        <div className="md:w-1/3 w-full">
+                                            <h5 className="font-bold text-base text-gray-700">Level</h5>
+                                            <p className="text-gray-900">{approver.level}</p>
+                                        </div>
+                                        <div className="md:w-1/3 w-full">
+                                            <h5 className="font-bold text-base text-gray-700">Status Persetujuan</h5>
+                                            <p className="text-gray-900">{approver.status}</p>
+                                        </div>
                                     </div>
                                 </div>
+                                {index < data.approvers.length - 1 && <hr className="my-3 border-gray-300" />}
                             </div>
-                            {index < data.approvers.length - 1 && <hr className="my-3 border-gray-300" />}
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
 
-                <div className="my-4">
-                    <h3 className="text-green-600 font-semibold text-lg mb-2">Informasi Dokumen</h3>
-                    <hr className="mb-4 border-gray-300" />
-                    <div className="flex justify-between flex-wrap gap-y-3">
-                        <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base text-gray-700">Tanggal Dibuat</h5>
-                            <p className="text-gray-900">{moment(data.model.createdAt).format('DD MMM YYYY HH:mm')}</p>
+                    <div className="my-4">
+                        <h3 className="text-green-600 font-semibold text-lg mb-2">Informasi Dokumen</h3>
+                        <hr className="mb-4 border-gray-300" />
+                        <div className="flex justify-between flex-wrap gap-y-3">
+                            <div className="md:w-1/3 w-full">
+                                <h5 className="font-bold text-base text-gray-700">Tanggal Dibuat</h5>
+                                <p className="text-gray-900">{moment(data.model.createdAt).format('DD MMM YYYY HH:mm')}</p>
+                            </div>
+                            <div className="md:w-1/3 w-full">
+                                <h5 className="font-bold text-base text-gray-700">Waktu Pindai</h5>
+                                <p className="text-gray-900">{moment().format('DD MMM YYYY HH:mm')}</p>
+                            </div>
+                            <div className="md:w-1/3 w-full">
+                                <h5 className="font-bold text-base text-gray-700">ID Signature</h5>
+                                <p className="text-gray-900 break-all text-sm">{id}</p>
+                            </div>
+                            {renderModelSpecificInfo()}
                         </div>
-                        <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base text-gray-700">Waktu Pindai</h5>
-                            <p className="text-gray-900">{moment().format('DD MMM YYYY HH:mm')}</p>
-                        </div>
-                        <div className="md:w-1/3 w-full">
-                            <h5 className="font-bold text-base text-gray-700">ID Signature</h5>
-                            <p className="text-gray-900 break-all text-sm">{id}</p>
-                        </div>
-                        {renderModelSpecificInfo()}
                     </div>
                 </div>
             </div>
