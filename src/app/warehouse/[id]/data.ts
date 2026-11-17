@@ -21,6 +21,11 @@ export async function getWarehouseSignature(
             return 'invalid_signature'
         }
 
+        // Kontrak API rusak (mis. field model tidak dikirim) — tampilkan kendala server, jangan crash
+        if (!('model' in signature) || !signature.model || !Array.isArray(signature.approvers)) {
+            return 'server_error'
+        }
+
         return signature
     } catch (error) {
         return toSignatureError(error)

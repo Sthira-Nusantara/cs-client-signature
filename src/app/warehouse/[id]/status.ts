@@ -1,4 +1,5 @@
-export function translateStatus(status: string) {
+export function translateStatus(status: string | null | undefined) {
+    if (!status) return '-'
     switch (status.toLowerCase()) {
         case 'approved':
             return 'Disetujui'
@@ -6,11 +7,16 @@ export function translateStatus(status: string) {
             return 'Ditolak'
         case 'pending':
             return 'Menunggu Persetujuan'
+        default:
+            return '-'
     }
 }
 
-export function documentTranslateStatus(status: string) {
+export function documentTranslateStatus(status: string | null | undefined) {
+    if (!status) return '-'
     switch (status.toUpperCase()) {
+        case 'DRAFT':
+            return 'Draf'
         case 'NEW':
             return 'Baru'
         case 'WAITING_APPROVAL':
@@ -25,5 +31,7 @@ export function documentTranslateStatus(status: string) {
             return 'Dalam Proses'
         case 'FINISH':
             return 'Selesai'
+        default:
+            return '-'
     }
 }
