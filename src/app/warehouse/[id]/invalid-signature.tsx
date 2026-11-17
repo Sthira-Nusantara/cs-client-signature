@@ -1,4 +1,3 @@
-'use client'
 import { FaTimesCircle } from 'react-icons/fa'
 
 export default function InvalidSignature() {

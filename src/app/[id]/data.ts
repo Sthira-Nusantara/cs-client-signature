@@ -1,29 +1,43 @@
-'use server'
+import 'server-only'
 import { SIGNATURE_API_URL } from '@/config/config'
-import { Signature } from '@/types/signature'
-import axios, { AxiosError } from 'axios'
+import { toSignatureError } from '@/lib/fetch-error'
+import { isUuid } from '@/lib/uuid'
+import { Signature, SignatureView } from '@/types/signature'
+import axios from 'axios'
 
-export async function getSignature(id: any): Promise<Signature | 'invalid_signature' | 'server_error'> {
+export async function getSignature(id: unknown): Promise<SignatureView | 'invalid_signature' | 'server_error'> {
+    if (!isUuid(id)) {
+        return 'invalid_signature'
+    }
+
     try {
-        if (typeof id !== 'string') {
-            return 'invalid_signature'
-        }
+        const res = await axios.get(`${SIGNATURE_API_URL}/${encodeURIComponent(id)}`, { timeout: 10000 })
 
-        const res = await axios.get(`${SIGNATURE_API_URL}/${id}`)
-
-        const signature: Signature = res.data?.data
+        const signature: Signature | undefined = res.data?.data
 
         if (signature?.status !== 'approve') {
             return 'invalid_signature'
         }
 
-        return signature
-    } catch (error) {
-        if (error instanceof AxiosError) {
-            if (error.code === 'ENOTFOUND' || (error.response?.status && error.response?.status >= 500)) {
-                return 'server_error'
-            }
+        const approver = signature.approvers?.find(approver => approver.signature === id)
+
+        if (!approver) {
+            return 'invalid_signature'
         }
-        return 'invalid_signature'
+
+        return {
+            usedBy: signature.usedBy,
+            purpose: signature.purpose,
+            date: signature.date,
+            createdAt: signature.createdAt,
+            signature: signature.signature,
+            approver: {
+                name: approver.employee.name,
+                nip: approver.employee.nip,
+                position: approver.employee.position.name,
+            },
+        }
+    } catch (error) {
+        return toSignatureError(error)
     }
 }

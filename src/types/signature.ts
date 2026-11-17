@@ -28,3 +28,16 @@ export interface Position {
     id: string
     name: string
 }
+
+export interface SignatureView {
+    usedBy: string
+    purpose: string
+    date: string
+    createdAt: string
+    signature: string
+    approver: {
+        name: string
+        nip: string
+        position: string
+    }
+}

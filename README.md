@@ -20,6 +20,15 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Environment variables
+
+Copy `.env.example` to `.env.local` and fill in the values. Both are read on the server only.
+
+- `SIGNATURE_API_URL` - base URL of the Rupira HR signature API.
+- `SIGNATURE_WAREHOUSE_API_URL` - base URL of the Warehouse signature API.
+
+The old `NEXT_PUBLIC_SIGNATURE_API_URL` and `NEXT_PUBLIC_SIGNATURE_WAREHOUSE_API_URL` names are deprecated; they are only used as a fallback when the new names are not set.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

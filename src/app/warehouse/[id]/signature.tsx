@@ -1,5 +1,4 @@
-'use client'
-import { documentTranslateStatus, translateStatus } from '@/app/warehouse/[id]/data'
+import { documentTranslateStatus, translateStatus } from './status'
 import { SignatureWarehouse } from '@/types/signature-warehouse'
 import moment from 'moment'
 
@@ -276,8 +275,9 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
             </div>
             <div className="mt-12">
                 <p className="text-lg text-gray-600">
-                    Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang
-                    diterbitkan Rupira.
+                    {data.status.toLowerCase() === 'approved'
+                        ? 'Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan Rupira.'
+                        : `Dokumen ini belum sepenuhnya disetujui. Status saat ini: ${translateStatus(data.status)}.`}
                 </p>
             </div>
         </>
