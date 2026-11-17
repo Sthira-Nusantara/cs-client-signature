@@ -1,11 +1,8 @@
-'use client'
-import { Approver, Signature } from '@/types/signature'
+import { SignatureView } from '@/types/signature'
 import moment from 'moment'
 import { FaCheckCircle } from 'react-icons/fa'
 
-export default function SignatureLayout({ data, id }: { data: Signature; id: string }) {
-    const approver = data.approvers.find(approver => approver.signature === id) as Approver
-
+export default function SignatureLayout({ data }: { data: SignatureView }) {
     return (
         <>
             <div className="bg-white px-3 py-6 md:px-12 md:py-16 rounded" style={{ minHeight: '50%' }}>
@@ -37,15 +34,15 @@ export default function SignatureLayout({ data, id }: { data: Signature; id: str
                     <div className="flex justify-between flex-wrap gap-y-3">
                         <div className="md:w-1/3 w-full">
                             <h5 className="font-bold text-base">Nama</h5>
-                            <p>{approver.employee.name}</p>
+                            <p>{data.approver.name}</p>
                         </div>
                         <div className="md:w-1/3 w-full">
                             <h5 className="font-bold text-base">NIP</h5>
-                            <p>{approver.employee.nip}</p>
+                            <p>{data.approver.nip}</p>
                         </div>
                         <div className="md:w-1/3 w-full">
                             <h5 className="font-bold text-base">Jabatan</h5>
-                            <p>{approver.employee.position.name}</p>
+                            <p>{data.approver.position}</p>
                         </div>
                     </div>
                 </div>

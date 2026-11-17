@@ -1,5 +1,4 @@
-'use client'
-import { documentTranslateStatus, translateStatus } from '@/app/warehouse/[id]/data'
+import { documentTranslateStatus, translateStatus } from './status'
 import { SignatureWarehouse } from '@/types/signature-warehouse'
 import moment from 'moment'
 
@@ -11,6 +10,9 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
             PO: 'Pembelian Barang (PO)',
             RI: 'Penerimaan Barang (RI)',
             RAB: 'Rencana Anggaran Biaya (RAB)',
+            DU: 'Pemakaian Harian (DU)',
+            SO: 'Stok Opname (SO)',
+            TF: 'Transfer Barang (TF)',
         }
         return labels[modelType] || modelType
     }
@@ -27,6 +29,12 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
                 return data.model.receivedItemNumber
             case 'RAB':
                 return data.model.billQuantityNumber
+            case 'DU':
+                return data.model.dailyUsageNumber
+            case 'SO':
+                return data.model.auditNumber
+            case 'TF':
+                return data.model.transferNumber
             default:
                 return '-'
         }
@@ -44,8 +52,8 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
                         <div className="md:w-1/3 w-full">
                             <h5 className="font-bold text-base text-gray-700">Tanggal Diterima</h5>
                             <p className="text-gray-900">
-                                {data.model.deliveredDate
-                                    ? moment(data.model.deliveredDate).format('DD MMM YYYY')
+                                {data.model.receivedAt
+                                    ? moment(data.model.receivedAt).format('DD MMM YYYY')
                                     : '-'}
                             </p>
                         </div>
@@ -137,7 +145,7 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
                         </div>
                         <div className="md:w-1/3 w-full">
                             <h5 className="font-bold text-base text-gray-700">Status</h5>
-                            <p className="text-gray-900">{translateStatus(data.model.status)}</p>
+                            <p className="text-gray-900">{documentTranslateStatus(data.model.currentStatus)}</p>
                         </div>
                         {data.model.description && (
                             <div className="w-full">
@@ -227,11 +235,11 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
                                             </div>
                                             <div className="md:w-1/3 w-full">
                                                 <h5 className="font-bold text-base text-gray-700">Jabatan</h5>
-                                                <p className="text-gray-900">{approver.user.position.name}</p>
+                                                <p className="text-gray-900">{approver.user.position?.name ?? '-'}</p>
                                             </div>
                                             <div className="md:w-1/3 w-full">
                                                 <h5 className="font-bold text-base text-gray-700">Divisi</h5>
-                                                <p className="text-gray-900">{approver.user.division.name}</p>
+                                                <p className="text-gray-900">{approver.user.division?.name ?? '-'}</p>
                                             </div>
                                             <div className="md:w-1/3 w-full">
                                                 <h5 className="font-bold text-base text-gray-700">Level</h5>
@@ -276,8 +284,9 @@ export default function WarehouseSignatureLayout({ data, id }: { data: Signature
             </div>
             <div className="mt-12">
                 <p className="text-lg text-gray-600">
-                    Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang
-                    diterbitkan Rupira.
+                    {data.status.toLowerCase() === 'approved'
+                        ? 'Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan Rupira.'
+                        : `Dokumen ini belum sepenuhnya disetujui. Status saat ini: ${translateStatus(data.status)}.`}
                 </p>
             </div>
         </>

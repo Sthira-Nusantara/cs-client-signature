@@ -1,4 +1,3 @@
-import { NextPageContext } from 'next'
 import { getSignature } from './data'
 import InvalidSignature from './invalid-signature'
 import ServerError from './server-error'
@@ -16,5 +15,5 @@ export default async function Signature(props: { params: Promise<{ id: string }>
         return <ServerError />
     }
 
-    return <SignatureLayout data={data} id={id} />
+    return <SignatureLayout data={data} />
 }

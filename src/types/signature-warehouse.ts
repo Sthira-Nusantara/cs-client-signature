@@ -1,119 +1,113 @@
+// Kontrak GET .../signatures/public/:id. `model` bisa null dari API, tetapi
+// getWarehouseSignature menolaknya (server_error), jadi di sini bertipe non-null.
 export type SignatureWarehouse = {
-    id: string;
-    status: string;
-    approvers: Approver[];
-    modelId: string;
-} & (DOModel | PRModel | POModel | RIModel | RABModel)
+    id: string
+    status: string
+    modelId: string
+    approvers: Approver[]
+} & (DOModel | PRModel | POModel | RIModel | RABModel | DUModel | SOModel | TFModel)
 
 export interface Approver {
-    level: number;
-    status: string;
-    user: User;
+    level: number
+    status: string
+    user: User
 }
 
 export interface User {
-    id: string;
-    name: string;
-    nip: string;
-    position: Position;
-    division: Division;
+    name: string
+    nip: string
+    position: Position | null
+    division: Division | null
 }
 
 export interface Position {
-    name: string;
+    name: string
 }
 
 export interface Division {
-    name: string;
+    name: string
 }
 
-
 interface DOModel {
-    modelType: "DO"
+    modelType: 'DO'
     model: {
-        id: string;
-        createdAt: string;
-        updatedAt: string;
-        deletedAt: string | null;
-        deliveryOrderNumber: string;
-        purchaseRequestId: string;
-        description: string | null;
-        currentStatus: string;
-        deliveryDate: string;
-        deliveredDate: string | null;
-        creatorId: string;
-        warehouseId: string;
+        createdAt: string
+        deliveryOrderNumber: string
+        deliveryDate: string
+        receivedAt: string | null
+        currentStatus: string
+        description: string | null
     }
 }
 
 interface PRModel {
-    modelType: "PR"
+    modelType: 'PR'
     model: {
-        id: string;
-        createdAt: string;
-        updatedAt: string;
-        deletedAt: string | null;
-        purchaseRequestNumber: string;
-        requesterId: string;
-        requirementDate: string;
-        projectName: string | null;
-        projectAddress: string | null;
-        currentStatus: string;
-        billQuantityId: string | null;
-        description: string | null;
+        createdAt: string
+        purchaseRequestNumber: string
+        requirementDate: string
+        projectName: string | null
+        projectAddress: string | null
+        currentStatus: string
+        description: string | null
     }
 }
 
 interface POModel {
-    modelType: "PO"
+    modelType: 'PO'
     model: {
-        id: string;
-        createdAt: string;
-        updatedAt: string;
-        deletedAt: string | null;
-        purchaseOrderNumber: string;
-        purchaseRequestId: string | null;
-        projectName: string;
-        supplierId: string;
-        term: string | null;
-        orderedById: string;
-        orderedAt: string;
-        expectedDeliveryDate: string;
-        totalPrice: number;
-        currentStatus: string;
+        createdAt: string
+        purchaseOrderNumber: string
+        projectName: string
+        orderedAt: string
+        expectedDeliveryDate: string
+        totalPrice: number
+        term: string | null
+        currentStatus: string
     }
 }
 
 interface RIModel {
-    modelType: "RI"
+    modelType: 'RI'
     model: {
-        id: string;
-        createdAt: string;
-        updatedAt: string;
-        deletedAt: string | null;
-        receivedItemNumber: string;
-        purchaseOrderId: string | null;
-        purchaseRequestId: string | null;
-        description: string | null;
-        receivedDate: string;
-        receivedBy: string;
-        creatorId: string;
-        warehouseId: string;
-        status: string;
+        createdAt: string
+        receivedItemNumber: string
+        receivedDate: string
+        currentStatus: string
+        description: string | null
     }
 }
 
 interface RABModel {
-    modelType: "RAB"
+    modelType: 'RAB'
     model: {
-        id: string;
-        createdAt: string;
-        updatedAt: string;
-        deletedAt: string | null;
-        billQuantityNumber: string;
-        createdBy: string;
-        projectId: string;
-        currentStatus: string;
-        version: number;
+        createdAt: string
+        billQuantityNumber: string
+        currentStatus: string
+        version: number
+    }
+}
+
+interface DUModel {
+    modelType: 'DU'
+    model: {
+        createdAt: string
+        dailyUsageNumber: string
+    }
+}
+
+interface SOModel {
+    modelType: 'SO'
+    model: {
+        createdAt: string
+        auditNumber: string
+    }
+}
+
+interface TFModel {
+    modelType: 'TF'
+    model: {
+        createdAt: string
+        transferNumber: string
     }
 }
